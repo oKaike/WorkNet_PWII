@@ -1,0 +1,129 @@
+:root {
+    --kenoby-purple: #5f27cd;
+    --kenoby-dark: #2e2e3a;
+    --kenoby-light-purple: #a29bfe;
+    --kenoby-white: #ffffff;
+    --kenoby-background: #f5f6fa;
+    --kenoby-error: #ff4444;
+    --kenoby-success: #4CAF50;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: var(--kenoby-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background-color: var(--kenoby-white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--kenoby-purple);
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--kenoby-dark);
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input:focus, select:focus {
+    border-color: var(--kenoby-purple);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(95, 39, 205, 0.2);
+}
+
+.checkbox {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox input {
+    width: auto;
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--kenoby-purple);
+    color: var(--kenoby-white);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--kenoby-light-purple);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.login-link a {
+    color: var(--kenoby-purple);
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+input:invalid, select:invalid {
+    border-color: var(--kenoby-error);
+}
+
+.error-message {
+    color: var(--kenoby-error);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.success-message {
+    background-color: var(--kenoby-success);
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}

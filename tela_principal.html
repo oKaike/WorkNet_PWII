@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkNet</title>
+</head>
+<body>
+<header>
+ <div class="logo"> 
+   <h2>WorkNet</h2>
+  </div>
+  <nav>
+    <a href="filtrar.html">Vagas</a>
+    <a href="empresa.html">Empresas</a>
+    <a href="profile.html">Perfil</a>
+    <a href="login.html">
+    <button class="btn">Login</button></a> 
+    <a href="cadastro.html">
+    <button class="btn">Cadastrar</button></a>
+  </nav>
+</header>
+
+<section class="companias-section">
+  <h2>Empresas líderes</h2>
+  <div class="companias-grid">
+    <div class="companias-card">McDonald's</div>
+    <div class="companias-card">MarketEase</div>
+    <div class="companias-card">Carrefour</div>
+  </div>
+</section>
+<section>
+   <div class="carrossel-container">
+    <div class="carrossel">
+      <div class="slides">
+        <div class="slide">
+          <div class="img">
+          <img src="Imagens/images.png"></div>
+          <div class="slide-content">
+            <h3>Carrefour</h3>
+            <p>Rede de hipermercados com variedade em alimentos, eletrônicos e utilidades.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img class="img" src="https://novonegocio.com.br/wp-content/uploads/2014/09/franquia-mc-donalds-2.jpg.webp" alt="Cidade 1">
+          <div class="slide-content">
+            <h3>McDonald</h3>
+            <p>Rede global de fast food famosa por hambúrgueres, batatas fritas e o icônico Big Mac.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img class="img2" src="Logo01.jpeg" style="display: block; margin: 0 auto; width: 80%;" alt="Tecnologia 1">
+          <div class="slide-content">
+            <h3>MarketEase</h3>
+            <p>Plataforma digital focada em facilitar compras e vendas com praticidade e agilidade e com funcionarios mais de.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+    <div class="indicadores">
+      <span class="indicador ativo"></span>
+      <span class="indicador"></span>
+      <span class="indicador"></span>
+    </div>
+
+   <h1 class="sobre_nos">Sobre Nós</h1>
+<p class="sobre_nos">
+  Na <strong>WorkNet</strong>, acreditamos que o talento certo no lugar certo pode transformar carreiras, empresas e o mundo.
+</p>
+<p class="sobre_nos">
+  Somos uma plataforma digital desenvolvida para conectar profissionais e empresas de forma inteligente, acessível e eficiente. Aqui, candidatos podem criar currículos modernos, encontrar oportunidades de trabalho compatíveis com seus perfis e se destacar no mercado. Ao mesmo tempo, recrutadores têm acesso a ferramentas práticas para divulgar vagas, filtrar talentos e contratar com mais agilidade.
+</p>
+<p class="sobre_nos">
+  Nosso objetivo é simplificar o processo de recrutamento e seleção, oferecendo uma experiência fluida tanto para quem busca um emprego quanto para quem precisa encontrar o profissional ideal.
+</p>
+
+<footer class="rodape">
+  <p>&copy; 2025 WorkNet. Todos os direitos reservados.</p>
+</footer>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const slides = document.querySelector('.slides');
+      const slideItems = document.querySelectorAll('.slide');
+      const prevBtn = document.querySelector('.prev');
+      const nextBtn = document.querySelector('.next');
+      const indicadores = document.querySelectorAll('.indicador');
+      
+      let currentIndex = 0;
+      const totalSlides = slideItems.length;
+      let intervalo;
+
+      function goToSlide(index) {
+        currentIndex = (index + totalSlides) % totalSlides;
+        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        updateIndicadores();
+      }
+
+      function updateIndicadores() {
+        indicadores.forEach((ind, index) => {
+          ind.classList.toggle('ativo', index === currentIndex);
+        });
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      function startAutoPlay() {
+        intervalo = setInterval(nextSlide, 5000);
+      }
+
+      function stopAutoPlay() {
+        clearInterval(intervalo);
+      }
+      startAutoPlay();
+    });
+    
+ 
+  const imagens = ["Imagens/images.png", "https://novonegocio.com.br/wp-content/uploads/2014/09/franquia-mc-donalds-2.jpg.webp", "Logo01.jpeg"];
+  let indice = 0;
+
+  function mudarImagem(direcao) {
+    indice += direcao;
+
+    if (indice < 0) {
+      indice = imagens.length - 1;
+    } else if (indice >= imagens.length) {
+      indice = 0;
+    }
+
+    document.getElementById("imagem").src = imagens[indice];
+  }
+  </script>
+
+<link rel="stylesheet" href="geral.css">
+</body>
+</html>

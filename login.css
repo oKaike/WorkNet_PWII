@@ -1,0 +1,102 @@
+:root {
+    --kenoby-purple: #5f27cd;
+    --kenoby-purple-dark: #4b1ea7;
+    --kenoby-white: #ffffff;
+    --kenoby-gray: #f5f5f5;
+    --kenoby-text: #2e2e3a;
+    --kenoby-muted: #888;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: var(--kenoby-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: var(--kenoby-white);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s;
+}
+
+.login-container:hover {
+    transform: translateY(-3px);
+}
+
+h1 {
+    color: var(--kenoby-purple);
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--kenoby-text);
+    font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: var(--kenoby-purple);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(95, 39, 205, 0.1);
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: var(--kenoby-muted);
+}
+
+.remember-me input {
+    margin-right: 8px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--kenoby-purple);
+    color: var(--kenoby-white);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: var(--kenoby-purple-dark);
+    transform: scale(1.02);
+}

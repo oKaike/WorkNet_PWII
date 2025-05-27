@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+</head>
+<body>
+  <button class="toggle-btn" id="openSidebar"><i class="fas fa-bars"></i></button>
+  <button type="button" class="menusuperior">Login/Cadastrar</button>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Menu</h3>
+      <button id="closeSidebar"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="sidebar-menu">
+      <li><i class="fas fa-briefcase"></i> <a href="empresa.html" style="color:white; text-decoration:none;">Vagas</a></li>
+      <li><i class="fas fa-search"></i> <a href="filtrar.html" style="color:white; text-decoration:none;">Pesquisar Vagas</a></li>
+      <li><i class="fas fa-comments"></i><a href="#" style="color:white; text-decoration:none;"> Comentarios</a></li>
+      <li><i class="fas fa-home"></i> <a href="tela_principal.html" style="color:white; text-decoration:none;">Voltar à Página Principal</a></li>
+    </ul>
+  </div>
+
+  <div class="perfil-container">
+    <form>
+      <div class="profile-header">
+        <div class="foto-de-perfil">
+          Foto do Usuário
+        </div>
+
+        <div class="profile-info">
+          <div class="info_nome">
+          <input type="text" class="info" name="nome" placeholder="Nome" required />
+          <input type="text" class="info"name="Sobrenome" placeholder="Sobrenome" required />
+        </div>
+          <input type="text" name="cargo" placeholder="Profissão ou cargo" />
+        <div class="endereco">
+          <input class="end" type="text" name="estado_user" placeholder="Estado" />
+          <input class="end" type="text" name="cidade_user" placeholder="Cidade" />
+        </div>
+          <input type="text" name="contato" placeholder="E-mail" />
+          <select id="genero" class="genero" name="gen">
+            <option id="option">Homem</option>
+            <option id="option">Mulher</option>
+            </select><br>
+          <select id="pais" name="nac_WN">
+            <option id="option" onchange=nacionalidade(paises)>Escolher Pais...</option>
+            </select><br>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Resumo</h3>
+        <textarea name="resumo" rows="4" placeholder="Escreva um resumo profissional..."></textarea>
+      </div>
+
+      <div class="section">
+        <h3>Experiência</h3>
+        <div class="experience-item">
+          <input type="text" name="empresa" placeholder="Nome da empresa" />
+          <input type="text" name="cargo_empresa" placeholder="Cargo" />
+          <input type="text" name="periodo" placeholder="Período (ex: Jan 2022 - Atual)" />
+          <textarea name="descricao_exp" rows="3" placeholder="Descrição da experiência..."></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Habilidades</h3>
+        <input type="text" name="habilidades" placeholder="Ex: JavaScript, CSS, HTML" />
+      </div>
+
+      <div style="overflow: hidden; ">
+        <div style="float: right;  ">
+        <input type="submit" value="Salvar Dados" style="background: #8e3ce0; box-shadow: 0 6px 16px rgba(142,60,224,0.5); transform: scale(1.00); color: white; border-radius: 8px; border: none; cursor: pointer; ">
+      </div>
+      </div>
+    </form>
+  </div>
+<link rel="stylesheet" href="profile.css">
+ <script src="profile.js"></script>
+ <script src="APIs.js"></script>
+</body>
+</html>
