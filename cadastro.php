@@ -1,7 +1,80 @@
 <?php
 session_start();
-include_once 'conexao.php'; 
+include_once 'conexao.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Coletar dados
+    $nome = trim($_POST['nome']);
+    $email = trim($_POST['email']);
+    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+    $data_nasc = $_POST['nascimento'];
+    $sexo = $_POST['sexo'];
+    $telefone = $_POST['telefone'];
+    $estado_civil = $_POST['estado_civil'];
+    $cpf = preg_replace('/[^0-9]/', '', $_POST['cpf']);
+    $rg = $_POST['rg'];
+    $nacionalidade = $_POST['nacionalidade'];
+    $cep = $_POST['cep'];
+    $estado = $_POST['estado'];
+    $cidade = $_POST['cidade'];
+    $bairro = $_POST['bairro'];
+
+    // Opcional: conhecimento
+    $conhecimentos = isset($_POST['conhecimentos']) ? json_encode($_POST['conhecimentos']) : null;
+
+    // Endereço JSON
+    $endereco = json_encode([
+        'cep' => $cep,
+        'estado' => $estado,
+        'cidade' => $cidade,
+        'bairro' => $bairro
+    ]);
+
+    // id_cliente fictício (ajuste se precisar)
+    $id_cliente = null;
+
+    // Verificação de email e CPF duplicado
+    $check = $conn->prepare("SELECT COUNT(*) FROM usuario WHERE email_user = :email OR cpf_user = :cpf");
+    $check->execute([':email' => $email, ':cpf' => $cpf]);
+
+    if ($check->fetchColumn() > 0) {
+        echo "E-mail ou CPF já está cadastrado.";
+        exit();
+    }
+
+    try {
+        $stmt = $conn->prepare("INSERT INTO usuario (
+            id_cliente, nome_user, email_user, senha_user, data_nasc, sexo_user, telefone_user,
+            estado_civil, cpf_user, rg_user, nacionalidade_user, endereco_user, conhecimentos
+        ) VALUES (
+            :id_cliente, :nome, :email, :senha, :data_nasc, :sexo, :telefone,
+            :estado_civil, :cpf, :rg, :nacionalidade, :endereco, :conhecimentos
+        )");
+
+        $stmt->bindParam(':id_cliente', $id_cliente);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $senha);
+        $stmt->bindParam(':data_nasc', $data_nasc);
+        $stmt->bindParam(':sexo', $sexo);
+        $stmt->bindParam(':telefone', $telefone);
+        $stmt->bindParam(':estado_civil', $estado_civil);
+        $stmt->bindParam(':cpf', $cpf);
+        $stmt->bindParam(':rg', $rg);
+        $stmt->bindParam(':nacionalidade', $nacionalidade);
+        $stmt->bindParam(':endereco', $endereco);
+        $stmt->bindParam(':conhecimentos', $conhecimentos);
+
+        $stmt->execute();
+
+        header("Location: login.php");
+        exit();
+    } catch (PDOException $e) {
+        echo "Erro ao cadastrar: " . $e->getMessage();
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -101,17 +174,31 @@ include_once 'conexao.php';
                 <label for="bairro">Bairro</label>
                 <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
             </div>
+                        <!-- Adicione este dentro da <form> -->
+            <div class="form-group">
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+            </div>
+
+            <!-- Exemplo de campo conhecimentos (opcional) -->
+            <div class="form-group">
+                <label>Conhecimentos</label><br>
+                <input type="checkbox" name="conhecimentos[]" value="HTML"> HTML
+                <input type="checkbox" name="conhecimentos[]" value="CSS"> CSS
+                <input type="checkbox" name="conhecimentos[]" value="JavaScript"> JavaScript
+            </div>
 
             <!-- Termos de Uso -->
             <div class="checkbox">
                 <input type="checkbox" id="termos" name="termos" required>
                 <label for="termos">Aceito os termos de uso e política de privacidade</label>
             </div>
+
+
+
             
-            <!-- Botão de Cadastro -->
             <button type="submit">Cadastrar</button>
             
-            <!-- Link para Login -->
             <div class="login-link">
                 Já tem uma conta? <a href="login.html">Faça login</a>
             </div>
@@ -122,61 +209,3 @@ include_once 'conexao.php';
 </body>
 </html>
 
-<?php
-
-include_once 'conexao.php'; // Conexão com o banco de dados
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Coletar os dados do formulário
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Criptografando a senha
-    $data_nasc = $_POST['nascimento'];
-    $sexo = $_POST['sexo'];
-    $telefone = $_POST['telefone'];
-    $estado_civil = $_POST['estado_civil'];
-    $cpf = $_POST['cpf'];
-    $rg = $_POST['rg'];
-    $nacionalidade = $_POST['nacionalidade'];
-    $estado = $_POST['estado'];
-    $cidade = $_POST['cidade'];
-    $bairro = $_POST['bairro'];
-
-    // Montando o JSON para o endereço
-    $endereco = json_encode([
-        'cep' => $_POST['cep'],
-        'estado' => $estado,
-        'cidade' => $cidade,
-        'bairro' => $bairro
-    ]);
-
-    // Inserir os dados no banco de dados
-    try {
-        // Inserir o usuário na tabela 'usuario'
-        $stmt = $conn->prepare("INSERT INTO usuario (nome_user, email_user, senha_user, data_nasc, sexo_user, telefone_user, estado_civil, cpf_user, rg_user, nacionalidade_user, endereco_user) 
-                                VALUES (:nome, :email, :senha, :data_nasc, :sexo, :telefone, :estado_civil, :cpf, :rg, :nacionalidade, :endereco)");
-
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        $stmt->bindParam(':data_nasc', $data_nasc);
-        $stmt->bindParam(':sexo', $sexo);
-        $stmt->bindParam(':telefone', $telefone);
-        $stmt->bindParam(':estado_civil', $estado_civil);
-        $stmt->bindParam(':cpf', $cpf);
-        $stmt->bindParam(':rg', $rg);
-        $stmt->bindParam(':nacionalidade', $nacionalidade);
-        $stmt->bindParam(':endereco', $endereco);
-
-        $stmt->execute();
-
-        // Redirecionar para a página de login após o cadastro bem-sucedido
-        header("Location: login.html");
-        exit();
-
-    } catch (PDOException $e) {
-        echo "Erro: " . $e->getMessage();
-    }
-}
-
-?>

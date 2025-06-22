@@ -30,7 +30,7 @@
         </form>
         
         <div class="registrar-link">
-            Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a>
+            Ainda não tem conta? <a href="cadastro.php">Cadastre-se</a>
         </div>
     </div>
 </body>
@@ -87,11 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } catch (PDOException $e) {
         echo "Erro: " . $e->getMessage();
     }
-} else {
-
-    header('Location: login.php');
-    exit();
 }
 ?>
 
-?>
