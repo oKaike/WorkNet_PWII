@@ -10,35 +10,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $senha = $_POST['senha'];
     $lembrar = isset($_POST['remember']) ? true : false;
     
-    // Validação básica
     if (empty($email) || empty($senha)) {
         $erro = "Email e senha são obrigatórios.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erro = "Email inválido.";
     } else {
         try {
-            $stmt = $conn->prepare("SELECT id_user, nome_user, senha_user FROM usuario WHERE email_user = :email LIMIT 1");
+            // buscar o usuário com email
+            $stmt = $conn->prepare("select id_user, nome_user, senha_user from usuario where email_user = :email limit 1");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             
             if ($stmt->rowCount() > 0) {
                 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-                
+
                 if (password_verify($senha, $usuario['senha_user'])) {
-                    // Login bem-sucedido
+                    // login bem-sucedido
                     $_SESSION['id_user'] = $usuario['id_user'];
                     $_SESSION['nome_user'] = $usuario['nome_user'];
-                    
-                    // Configurar cookies se solicitado
-                    if ($lembrar) {
-                        setcookie('email', $email, time() + (86400 * 30), "/", "", false, true); // 30 dias, httpOnly
-                        // Não salvar senha em cookie por segurança
+
+                    // buscar id_cliente do usuário
+                    $buscarCliente = $conn->prepare("select id_cliente from usuario where id_user = :id_user");
+                    $buscarCliente->execute([':id_user' => $usuario['id_user']]);
+                    $id_cliente = $buscarCliente->fetchColumn();
+
+                    if ($id_cliente) {
+                        $_SESSION['id_cliente'] = $id_cliente;
                     } else {
-                        // Limpar cookies se não quer lembrar
+                        $_SESSION['error'] = "id_cliente não encontrado.";
+                        header('Location: login.php');
+                        exit();
+                    }
+
+                    // lembrar email (opcional)
+                    if ($lembrar) {
+                        setcookie('email', $email, time() + (86400 * 30), "/", "", false, true);
+                    } else {
                         setcookie('email', '', time() - 3600, "/");
                     }
-                    
-                    header('Location: index.php');
+
+                    header('Location: profileH.php');
                     exit();
                 } else {
                     $erro = "Senha incorreta!";

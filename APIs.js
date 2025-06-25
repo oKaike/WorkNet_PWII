@@ -1,4 +1,3 @@
-
 function nacionalidade(paises){
     let pais = document.getElementById('pais');
       for(let i = 0; i<=paises.length; i++){

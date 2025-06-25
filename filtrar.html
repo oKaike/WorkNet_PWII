@@ -7,99 +7,234 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="filtrar.css">
     <link rel="stylesheet" href="profile.css">
+      <style>
+    /* CSS que você deve adicionar para os botões funcionarem e centralizarem */
+
+    .botoes-acoes {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* centraliza horizontalmente */
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-candidatar {
+      background-color: #0057b7;
+      color: white;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 200px; /* largura fixa */
+      text-align: center;
+    }
+
+    .btn-candidatar:hover {
+      background-color: #7e57c2;
+    }
+
+    .btn-candidatar:active {
+      transform: scale(0.98);
+    }
+
+    .botoes-secundarios {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+      max-width: 420px; /* limita a largura dos botões juntos */
+    }
+
+    .botao-vaga,
+    .botao-empresa {
+      background-color: #0057b7;
+      color: white;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      flex: 1; /* ocupa espaço igual */
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .botao-vaga:hover,
+    .botao-empresa:hover {
+      background-color: #7e57c2;
+    }
+
+    .botao-vaga:active,
+    .botao-empresa:active {
+      transform: scale(0.98);
+    }
+
+    /* Centralizar o visualizador */
+    .visualizador {
+      margin: 17px auto 0 auto; /* centraliza horizontalmente */
+      background-color: #fff;
+      padding: 0 25px 20px 25px;
+      width: 800px;
+      min-height: 400px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+  </style>
 </head>
 <body>
-    <button class="toggle-btn" id="openSidebar"><i class="fas fa-bars"></i></button>
-    <button type="button" class="menusuperior">Login/Cadastrar</button>
+  <button class="toggle-btn" id="openSidebar"><i class="fas fa-bars"></i></button>
+  <button type="button" class="menusuperior">Login/Cadastrar</button>
 
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h3>Menu</h3>
-            <button id="closeSidebar"><i class="fas fa-times"></i></button>
-          </div>
-<ul class="sidebar-menu">
-  <li><i class="fas fa-briefcase"></i> <a href="empresa.html" style="color:white; text-decoration:none;">Empresas</a></li>
-  <li><i class="fas fa-search"></i> <a href="filtrar.html" style="color:white; text-decoration:none;">Pesquisar Vagas</a></li>
-  <li><i class="fas fa-comments"></i><a href="#" style="color:white; text-decoration:none;"> Comentarios</a></li>
-  <li><i class="fas fa-home"></i> <a href="tela_principal.html" style="color:white; text-decoration:none;">Voltar à Página Principal</a></li>
-</ul>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3>Menu</h3>
+      <button id="closeSidebar"><i class="fas fa-times"></i></button>
     </div>
-    <input type="text" placeholder="Pesquisar Vagas" id="searchbar"
-    onkeyup="search()"  name="searchbar" class="pesquisa">
-    <div class="container">
-        <div class="container">
-            <div class="lista-botoes">
-              <div class="alternar" 
-                   data-titulo="<strong>Programador Back-End</strong>" 
-                   data-descricao="<button class='botao-vaga'>Vaga</button> <button class='botao-empresa'>Empresa</button>" 
-                   data-id="vaga-backend">   
-                <h2>Programador Back-End</h2>
-                <p>EMPRESA CONFIDENCIAL</p>
-                <p>São Paulo - SP, a 24 Km de você</p>
-              </div>
-          
-              <div class="alternar" 
-                   data-titulo="<strong>Coordenador de Cibersegurança</strong>" 
-                   data-descricao="<button id='btn-candidatar' onclick='candidatar()'>Candidatar-se</button><br><button class='botao-vaga'>Vaga</button><button class='botao-empresa'>Empresa</button>" 
-                   data-id="vaga-ciberseguranca">
-                <h2>Coordenador de Cibersegurança</h2>
-                <p>JAMEF ENCOMENDAS URGENTES</p>
-                <p>São Paulo - SP, a 21 Km de você.</p>
-              </div>
-          
-              <div class="alternar" 
-                   data-titulo="<strong>Full Stack Developer</strong>" 
-                   data-descricao="<button class='botao-vaga'>Vaga</button><button class='botao-empresa'>Empresa</button>" 
-                   data-id="vaga-fullstack">
-                <h2>Full Stack Developer</h2>
-                <p>MarketEase</p>
-                <p>Diadema - SP, a Alguns Metros de você</p>
-              </div>
-          
-              <div class="alternar" 
-                   data-titulo="<strong>Stack Holder</strong>" 
-                   data-descricao="<button class='botao-vaga'>Vaga</button><button class='botao-empresa'>Empresa</button>" 
-                   data-id="vaga-stackholder">
-                <h2>Stack Holder</h2>
-                <p>C&M Executive</p>
-                <p> São Paulo - SP, a 12,4 km de você.</p>
-              </div>
-          
-              <div class="alternar" 
-                   data-titulo="<strong>Engenheiro de Software</strong>" 
-                   data-descricao="<button class='botao-vaga'>Vaga</button><button class='botao-empresa'>Empresa</button>" 
-                   data-id="vaga-engenheiro">
-                <h2>Engenheiro de Software</h2>
-                <p>RESTOQUE SA</p>
-                <p>São Paulo - SP, a 23,1 km de você.</p>
-              </div>
-          
-              <div class="alternar" 
-                   data-titulo="<strong>Cientista de Dados</strong> " 
-                   data-descricao="<button class='botao-vaga'>Vaga</button><button class='botao-empresa'>Empresa</button>" 
-                   data-id="vaga-dados">
-                <h2>Cientista de Dados</h2>
-                <p>CORPORATIVO GRUPO CARREFOUR BRASIL</p>
-                <p>São Paulo - SP, a 20,4 km de você.</p>
-              </div>
-            </div>
-          
-            <div id="visualizador" class="visualizador">
-              <h2></h2>
-              <p></p>
-              <div class="vaga-detalhes" style="margin-top: 10px;"></div>
+    <ul class="sidebar-menu">
+      <li><i class="fas fa-briefcase"></i> <a href="empresa.html" style="color:white; text-decoration:none;">Empresas</a></li>
+      <li><i class="fas fa-search"></i> <a href="filtrar.html" style="color:white; text-decoration:none;">Pesquisar Vagas</a></li>
+      <li><i class="fas fa-comments"></i><a href="#" style="color:white; text-decoration:none;"> Comentarios</a></li>
+      <li><i class="fas fa-home"></i> <a href="tela_principal.html" style="color:white; text-decoration:none;">Voltar à Página Principal</a></li>
+    </ul>
+  </div>
+
+  <input
+    type="text"
+    placeholder="Pesquisar Vagas"
+    id="searchbar"
+    onkeyup="search()"
+    name="searchbar"
+    class="pesquisa"
+  />
+
+  <div class="container">
+    <div class="lista-botoes">
+      <div
+        class="alternar"
+        data-titulo="<strong>Programador Back-End</strong>"
+        data-descricao='
+          <div class="botoes-acoes">
+            <button class="btn-candidatar" onclick="candidatar()">Candidatar-se</button>
+            <div class="botoes-secundarios">
+              <button class="botao-vaga">Vaga</button>
+              <button class="botao-empresa">Empresa</button>
             </div>
           </div>
-          
-    
-</div>
+        '
+        data-id="vaga-backend"
+      >
+        <h2>Programador Back-End</h2>
+        <p>EMPRESA CONFIDENCIAL</p>
+        <p>São Paulo - SP, a 24 Km de você</p>
+      </div>
 
+      <div
+        class="alternar"
+        data-titulo="<strong>Coordenador de Cibersegurança</strong>"
+        data-descricao='
+          <div class="botoes-acoes">
+            <button class="btn-candidatar" onclick="candidatar()">Candidatar-se</button>
+            <div class="botoes-secundarios">
+              <button class="botao-vaga">Vaga</button>
+              <button class="botao-empresa">Empresa</button>
+            </div>
+          </div>
+        '
+        data-id="vaga-ciberseguranca"
+      >
+        <h2>Coordenador de Cibersegurança</h2>
+        <p>JAMEF ENCOMENDAS URGENTES</p>
+        <p>São Paulo - SP, a 21 Km de você.</p>
+      </div>
 
-    
-        
+      <div
+        class="alternar"
+        data-titulo="<strong>Full Stack Developer</strong>"
+        data-descricao='
+          <div class="botoes-acoes">
+            <button class="btn-candidatar" onclick="candidatar()">Candidatar-se</button>
+            <div class="botoes-secundarios">
+              <button class="botao-vaga">Vaga</button>
+              <button class="botao-empresa">Empresa</button>
+            </div>
+          </div>
+        '
+        data-id="vaga-fullstack"
+      >
+        <h2>Full Stack Developer</h2>
+        <p>MarketEase</p>
+        <p>Diadema - SP, a Alguns Metros de você</p>
+      </div>
 
-<script src="filtrar.js"></script>
-<script src="profile.js"></script>
+      <div
+        class="alternar"
+        data-titulo="<strong>Stack Holder</strong>"
+        data-descricao='
+          <div class="botoes-acoes">
+            <button class="btn-candidatar" onclick="candidatar()">Candidatar-se</button>
+            <div class="botoes-secundarios">
+              <button class="botao-vaga">Vaga</button>
+              <button class="botao-empresa">Empresa</button>
+            </div>
+          </div>
+        '
+        data-id="vaga-stackholder"
+      >
+        <h2>Stack Holder</h2>
+        <p>C&M Executive</p>
+        <p> São Paulo - SP, a 12,4 km de você.</p>
+      </div>
 
+      <div
+        class="alternar"
+        data-titulo="<strong>Engenheiro de Software</strong>"
+        data-descricao='
+          <div class="botoes-acoes">
+            <button class="btn-candidatar" onclick="candidatar()">Candidatar-se</button>
+            <div class="botoes-secundarios">
+              <button class="botao-vaga">Vaga</button>
+              <button class="botao-empresa">Empresa</button>
+            </div>
+          </div>
+        '
+        data-id="vaga-engenheiro"
+      >
+        <h2>Engenheiro de Software</h2>
+        <p>RESTOQUE SA</p>
+        <p>São Paulo - SP, a 23,1 km de você.</p>
+      </div>
+
+      <div
+        class="alternar"
+        data-titulo="<strong>Cientista de Dados</strong>"
+        data-descricao='
+          <div class="botoes-acoes">
+            <button class="btn-candidatar" onclick="candidatar()">Candidatar-se</button>
+            <div class="botoes-secundarios">
+              <button class="botao-vaga">Vaga</button>
+              <button class="botao-empresa">Empresa</button>
+            </div>
+          </div>
+        '
+        data-id="vaga-dados"
+      >
+        <h2>Cientista de Dados</h2>
+        <p>CORPORATIVO GRUPO CARREFOUR BRASIL</p>
+        <p>São Paulo - SP, a 20,4 km de você.</p>
+      </div>
+    </div>
+
+    <div id="visualizador" class="visualizador">
+      <h2></h2>
+      <p></p>
+      <div class="vaga-detalhes" style="margin-top: 10px;"></div>
+    </div>
+  </div>
+
+  <script src="filtrar.js"></script>
+  <script src="profile.js"></script>
 </body>
 </html>
